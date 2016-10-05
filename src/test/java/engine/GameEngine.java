@@ -1,23 +1,30 @@
 package engine;
 
+import org.joml.Matrix4f;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
 
+import java.nio.FloatBuffer;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public abstract class GameEngine {
-    public boolean running = false;
-    public long window;
-    public long monitor;
-    public int width = -1;
-    public int height = -1;
-    public String tittle = "";
-    public GLCapabilities capabilities;
+    protected boolean running = false;
+    protected long window;
+    protected long monitor;
+    protected int width = -1;
+    protected int height = -1;
+    protected String tittle = "";
+    protected GLCapabilities capabilities;
+
+    protected Matrix4f projection;
+    protected Matrix4f view;
+    protected FloatBuffer fb;
 
     public abstract void config();
 

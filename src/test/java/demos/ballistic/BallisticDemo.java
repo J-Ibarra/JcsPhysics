@@ -1,4 +1,4 @@
-package ballistic;
+package demos.ballistic;
 
 import engine.Font;
 import engine.GameEngine;
@@ -8,7 +8,6 @@ import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.Version;
 
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,23 +17,17 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class BallisticDemo extends GameEngine {
 
-
-    private Matrix4f projection;
-    private Matrix4f view;
-    private FloatBuffer fb;
-
     private final Vector3f initPos = new Vector3f(0.0f, 1.5f, 0.0f);
     private AmmoRound.ShotType currentShotType = AmmoRound.ShotType.PISTOL;
     private String type = "Pistol";
     private List<AmmoRound> ammoRounds = new ArrayList<>();
     private final int maxAmmoRounds = 20;
 
-
     @Override
     public void config() {
-        tittle = "Demo:: ballistic.BallisticDemo";
-        width = 1200;
-        height = 600;
+        tittle = "Demo:: BallisticDemo";
+        width = 640;
+        height = 320;
     }
 
     @Override
@@ -110,7 +103,7 @@ public class BallisticDemo extends GameEngine {
         }
 
         for (AmmoRound ammo : rounds)
-            if (ammo.getPosition().y <= 0 || ammo.getPosition().z > 200.0f)
+            if (ammo.getPosition().y >= 35 || ammo.getPosition().y <= 0 || ammo.getPosition().z > 200.0f)
                 ammoRounds.remove(ammo);
 
     }

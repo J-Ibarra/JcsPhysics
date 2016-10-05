@@ -1,4 +1,4 @@
-package ballistic;
+package demos.ballistic;
 
 import com.jcs.Particle;
 import engine.Shape;
