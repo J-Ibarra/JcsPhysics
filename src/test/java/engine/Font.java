@@ -46,4 +46,8 @@ public class Font {
         glDisableClientState(GL_VERTEX_ARRAY);
         glEnable(GL_CULL_FACE);
     }
+
+    public static void render(String text, long window, int x, int y) {
+        render(text, window, x, y, new Vector3f(1f));
+    }
 }

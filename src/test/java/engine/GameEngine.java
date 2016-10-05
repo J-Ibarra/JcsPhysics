@@ -82,8 +82,10 @@ public abstract class GameEngine {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
-        width = 480;
-        height = 360;
+        if (width == -1 || height == -1) {
+            width = 480;
+            height = 360;
+        }
 
         // Create the window
         window = glfwCreateWindow(width, height, tittle, NULL, NULL);
