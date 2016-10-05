@@ -137,8 +137,7 @@ public class FireworkDemo extends GameEngine {
         Font.render("num FireWorks: " + noFireWorks, window, 10, 25);
         Font.render("LWJGL: " + Version.getVersion(), window, 10, 35);
 
-
-        Font.render(" 1-8: Select Rule", window,
+        Font.render("1-9: Select Rule", window,
                 width - 100, height - 30);
     }
 
@@ -245,10 +244,10 @@ public class FireworkDemo extends GameEngine {
         rules[7] = new FireworkRule();
         rules[7].init(0);
         rules[7].setParameters(8, // type
-                0.25f, 0.5f, // age range
-                new Vector3f(-1f, 5f, -1f), // min velocity
-                new Vector3f(1f, 10f, 1f), // max velocity
-                0.01f // damping
+                0.25f, 0.9f, // age range
+                new Vector3f(-2f, 5f, -2f), // min velocity
+                new Vector3f(2f, 10f, 2f), // max velocity
+                0.05f // damping
         );
 
         rules[8] = new FireworkRule();
