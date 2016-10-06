@@ -63,6 +63,8 @@ public class Particle {
      * This function uses a Newton-Euler integration method, which is a
      * linear approximation to the correct integral. For this reason it
      * may be inaccurate in some cases.
+     *
+     * @param duration the delta time for integrate
      */
     public void integrate(float duration) {
         // We don't integrate things with zero mass.
@@ -90,17 +92,17 @@ public class Particle {
 
         // Clear the forces.
         clearAccumulator();
-
     }
 
     /**
      * Sets the inverse mass of the particle.
+     * <p>
+     * This invalidates internal data for the particle. Either an
+     * integration function, or the calculateInternals function should
+     * be called before trying to get any settings from the particle.
      *
      * @param inverseMass The new inverse mass of the body. This may be zero, for a body
      *                    with infinite mass (i.e. unmovable).
-     * @warning This invalidates internal data for the particle. Either an
-     * integration function, or the calculateInternals function should
-     * be called before trying to get any settings from the particle.
      */
     public void setInverseMass(float inverseMass) {
         this.inverseMass = inverseMass;
@@ -117,12 +119,13 @@ public class Particle {
 
     /**
      * Sets the mass of the particle.
+     * <p>
+     * This invalidates internal data for the particle. Either an
+     * integration function, or the calculateInternals function should
+     * be called before trying to get any settings from the particle.
      *
      * @param mass The new mass of the body. This may not be zero. Small masses
      *             can produce unstable rigid bodies under simulation.
-     * @warning This invalidates internal data for the particle. Either an
-     * integration function, or the calculateInternals function should
-     * be called before trying to get any settings from the particle.
      */
     public void setMass(float mass) {
         assert (mass != 0);
@@ -144,6 +147,8 @@ public class Particle {
 
     /**
      * Returns true if the mass of the particle is not-infinite.
+     *
+     * @return the inverseMass
      */
     public boolean hasFiniteMass() {
         return inverseMass >= 0.0f;
@@ -151,6 +156,8 @@ public class Particle {
 
     /**
      * Sets both the damping of the particle.
+     *
+     * @param damping the new value of damping
      */
     public void setDamping(float damping) {
         this.damping = damping;
@@ -175,6 +182,17 @@ public class Particle {
     public void setPosition(float x, float y, float z) {
         this.position.set(x, y, z);
     }
+
+    /**
+     * Fills the given vector with the position of the rigid body.
+     *
+     * @param position A pointer to a vector into which to write
+     *                 the position.
+     */
+    public Vector3f getPosition(Vector3f position) {
+        return position.set(this.position);
+    }
+
 
     /**
      * Gets the position of the particle.
@@ -206,6 +224,17 @@ public class Particle {
     }
 
     /**
+     * Fills the given vector with the velocity of the rigid body.
+     *
+     * @param velocity A pointer to a vector into which to write
+     *                 the velocity. The velocity is given in world local space.
+     */
+    public Vector3f getVelocity(Vector3f velocity) {
+        return velocity.set(this.velocity);
+    }
+
+
+    /**
      * Gets the velocity of the particle.
      *
      * @return The velocity of the particle. The velocity is given in world
@@ -213,6 +242,15 @@ public class Particle {
      */
     public Vector3f getVelocity() {
         return this.velocity;
+    }
+
+    /**
+     * Applies the given change in velocity.
+     *
+     * @param deltaVelocity the delta Velocity to add
+     */
+    public void addVelocity(Vector3f deltaVelocity) {
+        this.velocity.add(deltaVelocity);
     }
 
     /**
@@ -236,6 +274,17 @@ public class Particle {
     }
 
     /**
+     * Fills the given vector with the acceleration of the rigid body.
+     *
+     * @param acceleration A pointer to a vector into which to write
+     *                     the acceleration. The acceleration is given in world local space.
+     */
+    public Vector3f getAcceleration(Vector3f acceleration) {
+        return acceleration.set(this.acceleration);
+    }
+
+
+    /**
      * Gets the acceleration of the particle.
      *
      * @return The acceleration of the particle. The acceleration is given in
@@ -247,6 +296,8 @@ public class Particle {
 
     /**
      * Gets the current damping value.
+     *
+     * @return the value of damping
      */
     public float getDamping() {
         return damping;

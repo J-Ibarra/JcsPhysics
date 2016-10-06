@@ -1,0 +1,4 @@
+language: java
+script: gradle -q clean jar sourcesJar --info
+jdk:
+  - oraclejdk8

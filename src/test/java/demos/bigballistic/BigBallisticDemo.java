@@ -1,4 +1,4 @@
-package demos.ballistic;
+package demos.bigballistic;
 
 import engine.Font;
 import engine.GameEngine;
@@ -15,7 +15,7 @@ import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-public class BallisticDemo extends GameEngine {
+public class BigBallisticDemo extends GameEngine {
 
     private final Vector3f initPos = new Vector3f(0.0f, 1.5f, 0.0f);
     private AmmoRound.ShotType currentShotType = AmmoRound.ShotType.UNUSED;
@@ -25,7 +25,7 @@ public class BallisticDemo extends GameEngine {
 
     @Override
     public void config() {
-        tittle = "Demo:: BallisticDemo";
+        tittle = "Demo:: BigBallisticDemo";
         width = 640;
         height = 320;
     }
@@ -39,7 +39,6 @@ public class BallisticDemo extends GameEngine {
 
     @Override
     public void initCallbacks() {
-
         glfwSetWindowCloseCallback(window, win -> running = false);
 
         glfwSetMouseButtonCallback(window, (win, button, action, mods) -> {
@@ -87,28 +86,27 @@ public class BallisticDemo extends GameEngine {
             height = h;
             glViewport(0, 0, width, height);
         });
-
     }
 
     @Override
     public void update(float delta) {
-
         if (delta <= 0.0f)
             return;
 
         List<AmmoRound> cache = new ArrayList<>();
         for (AmmoRound shot : ammoRounds) {
-            shot.integrate(delta);
+            shot.body.integrate(delta);
+            shot.calculateInternals();
             shot.isRemove();
             cache.add(shot);
         }
+
 
         for (AmmoRound shotCache : cache)
             if (shotCache.type == AmmoRound.ShotType.UNUSED)
                 ammoRounds.remove(shotCache);
 
         cache.clear();
-
     }
 
     @Override
@@ -132,9 +130,7 @@ public class BallisticDemo extends GameEngine {
         Shape.renderSphere();
         glPopMatrix();
 
-        //glPushMatrix();
         ammoRounds.forEach(AmmoRound::render);
-        //glPopMatrix();
 
         Font.render(tittle, window, 10, 10, new Vector3f());
         Font.render(upsCount, window, 10, 20, new Vector3f());
@@ -205,13 +201,13 @@ public class BallisticDemo extends GameEngine {
                 break;
         }
 
-        shot.setPosition(initPos);
+        shot.body.setPosition(initPos);
         shot.type = currentShotType;
 
         ammoRounds.add(shot);
     }
 
     public static void main(String[] args) {
-        new BallisticDemo().run();
+        new BigBallisticDemo().run();
     }
 }

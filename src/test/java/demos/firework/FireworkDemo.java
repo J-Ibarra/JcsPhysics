@@ -59,31 +59,31 @@ public class FireworkDemo extends GameEngine {
 
             if (action == GLFW_PRESS || action == GLFW_REPEAT) {
                 switch (key) {
-                    case '1':
+                    case GLFW_KEY_1:
                         create(1, 1, null);
                         break;
-                    case '2':
+                    case GLFW_KEY_2:
                         create(2, 1, null);
                         break;
-                    case '3':
+                    case GLFW_KEY_3:
                         create(3, 1, null);
                         break;
-                    case '4':
+                    case GLFW_KEY_4:
                         create(4, 1, null);
                         break;
-                    case '5':
+                    case GLFW_KEY_5:
                         create(5, 1, null);
                         break;
-                    case '6':
+                    case GLFW_KEY_6:
                         create(6, 1, null);
                         break;
-                    case '7':
+                    case GLFW_KEY_7:
                         create(7, 1, null);
                         break;
-                    case '8':
+                    case GLFW_KEY_8:
                         create(8, 1, null);
                         break;
-                    case '9':
+                    case GLFW_KEY_9:
                         create(9, 1, null);
                         break;
                 }
@@ -109,7 +109,6 @@ public class FireworkDemo extends GameEngine {
                         create(payload.type, payload.count, firework);
                     }
                 }
-
     }
 
     @Override
@@ -195,13 +194,14 @@ public class FireworkDemo extends GameEngine {
         rules[1].payloads[0].set(4, 2);
 
         rules[2] = new FireworkRule();
-        rules[2].init(0);
+        rules[2].init(1);
         rules[2].setParameters(3, // type
                 0.5f, 1.5f, // age range
                 new Vector3f(-5f, 0f, -5f), // min velocity
                 new Vector3f(5f, 10f, 5f), // max velocity
                 0.1f // damping
         );
+        rules[2].payloads[0].set(8, 5);
 
         rules[3] = new FireworkRule();
         rules[3].init(0);
@@ -234,7 +234,7 @@ public class FireworkDemo extends GameEngine {
         rules[6] = new FireworkRule();
         rules[6].init(1);
         rules[6].setParameters(7, // type
-                0.5f, 1.0f, // age range
+                0.5f, 2.0f, // age range
                 new Vector3f(-5f, 30f, -5f), // min velocity
                 new Vector3f(5f, 40f, 5f), // max velocity
                 0.01f // damping
